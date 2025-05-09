@@ -1,5 +1,5 @@
 x_marks = [i for i in range(9)] * 9
 y_marks = (pd.Series(x_marks[:9])).repeat(9)
-d = pd.DataFrame({'x': x_marks, 'y': y_marks})
-d = d[d['x'] != d['y']]
-marks = sns.scatterplot(data=d, x='x', y='y', marker='+', color='gray', alpha=.5, legend=False)#, ax=ax)
+d_marks = pd.DataFrame({'x': x_marks, 'y': y_marks})
+d_marks = d_marks[d_marks['x'] != d_marks['y']]
+p_marks = sns.scatterplot(data=d_marks, x='x', y='y', marker='+', color='gray', alpha=.5, legend=False)#, ax=ax)

@@ -2,4 +2,20 @@ x_marks = [i for i in range(9)] * 9
 y_marks = (pd.Series(x_marks[:9])).repeat(9)
 d_marks = pd.DataFrame({'x': x_marks, 'y': y_marks})
 d_marks = d_marks[d_marks['x'] != d_marks['y']]
-p_marks = sns.scatterplot(data=d_marks, x='x', y='y', marker='+', color='gray', alpha=.5, legend=False)#, ax=ax)
+d_marks.reset_index(drop=True, inplace=True)
+
+deleteindex = []
+deletepairs = [[8, 0], [7, 1], [6, 2], [5, 4]]
+
+# comment the block below to show all ticks
+for d in d_marks.index:
+    for p in deletepairs:
+        for i, x in enumerate([['x', 'y'], ['y', 'x']]):
+            if d_marks[x[0]][d] == p[0] and d_marks[x[1]][d] > p[1]:
+                deleteindex.append(d)
+
+d_marks_possible = d_marks.drop(deleteindex)
+
+# p_marks shows all possible marks except x=y
+p_marks = sns.scatterplot(data=d_marks, x='x', y='y', marker='+', color='gray', alpha=1/3, legend=False)#, ax=ax)
+p_marks_possible = sns.scatterplot(data=d_marks_possible, x='x', y='y', marker='+', color='gray', legend=False)#, ax=ax)
